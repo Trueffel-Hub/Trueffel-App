@@ -33,7 +33,7 @@ private val DarkColors = darkColorScheme(
 // Composable Funktion für das Theme
 @Composable
 fun DemoTheme(
-    darkTheme: Boolean = false,
+    darkTheme: Boolean = true,
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {

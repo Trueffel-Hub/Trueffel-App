@@ -10,6 +10,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,9 +31,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DemoTheme(dynamicColor = false, darkTheme = false) {
+            DemoTheme(dynamicColor = false, darkTheme = true) {
                 val navController = rememberNavController()
-                Surface(color = Color.White) {
+                Surface(color = Color.Red) {
                     // Scaffold Component
                     Scaffold(
                         // Bottom navigation
@@ -84,8 +89,8 @@ fun BottomNavigationBar(navController: NavHostController) {
 
     NavigationBar(
 
-        // set background color
-        containerColor = Color(0xFF0F9D58)) {
+        // set background color for navigation bar
+        containerColor = Color(0xFFbcbcbc)) {
 
         // observe the backstack
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -110,26 +115,27 @@ fun BottomNavigationBar(navController: NavHostController) {
 
                 // Icon of navItem
                 icon = {
-                    Icon(imageVector = navItem.icon, contentDescription = navItem.label)
+
+                    Icon(
+                        painter = painterResource(id = navItem.icon),
+                        contentDescription = navItem.label,
+                        modifier = Modifier.size(40.dp),
+                        tint = Color.Unspecified
+                    )
                 },
 
                 // label
                 label = {
                     Text(text = navItem.label)
                 },
-                alwaysShowLabel = false,
+                alwaysShowLabel = true,
 
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color.White, // Icon color when selected
-                    unselectedIconColor = Color.White, // Icon color when not selected
                     selectedTextColor = Color.White, // Label color when selected
-                    indicatorColor = Color(0xFF195334) // Highlight color for selected item
+                    indicatorColor = Color(0xffbcbcbc) // Highlight color for selected item
                 )
             )
         }
     }
 }
 
-fun Icon(imageVector: Int, contentDescription: String) {
-
-}
