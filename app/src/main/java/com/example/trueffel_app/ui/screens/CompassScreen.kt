@@ -43,7 +43,7 @@ fun CompassScreen(viewModel: CompassViewModel) {
 
             location?.let {
                 val distance =viewModel.calculateDistance(viewModel.destination.latitude,viewModel.destination.longitude,it.latitude,it.longitude)
-                Text(text = "Entfernung ${viewModel.destination.name} ${String.format("%.4f", distance)} km.")
+                Text(text = "Luftlinie zum/zur ${viewModel.destination.name} ${String.format("%.4f", distance)} km.")
             } ?: Text(text = "Standort nicht verfügbar")
 
             Spacer(modifier = Modifier.weight(1f))

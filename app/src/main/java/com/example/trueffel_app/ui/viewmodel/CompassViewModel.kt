@@ -22,8 +22,8 @@ import kotlin.math.sqrt
 
 
 enum class Destination(val latitude: Double, val longitude: Double) {
-    Bank(52.5200, 13.4050),
-    Garten(48.8566, 2.3522),
+    Bank(52.210111, 10.744470),
+    Garten(52.218197, 10.691426),
     None(0.0, 0.0)
 }
 
