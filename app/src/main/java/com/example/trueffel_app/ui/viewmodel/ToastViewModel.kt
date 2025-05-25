@@ -56,7 +56,7 @@ class ToastViewModel : ViewModel() {
 
             toast
         } else {
-            "Alle Sprüche sind gesprochen. Ich hoffe ihr seid schon bei Marv im Garten angekrochen."
+            "Alle Sprüche sind gesprochen. Ich hoffe ihr seid schon zu Marv in den Garten gekrochen."
         }
     }
 

@@ -2,6 +2,8 @@ package com.example.trueffel_app
 
 
 
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.*
 import androidx.activity.compose.setContent
@@ -13,6 +15,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -21,6 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.trueffel_app.repository.ToastViewModel
+import com.example.trueffel_app.ui.viewmodel.CompassViewModel
 import com.example.trueffel_app.ui.screens.HomeScreen
 import com.example.trueffel_app.ui.screens.CompassScreen
 import com.example.trueffel_app.ui.screens.ToastScreen
@@ -32,6 +36,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val toastViewModel = ViewModelProvider(this)[ToastViewModel::class.java]
+        val compassViewModel = ViewModelProvider(this)[CompassViewModel::class.java]
 
         setContent {
 
@@ -44,12 +49,13 @@ class MainActivity : ComponentActivity() {
                             BottomNavigationBar(navController = navController)
                         }, content = { padding ->
                             // Nav host: where screens are placed
-                            NavHostContainer(navController = navController, padding = padding, toastModel = toastViewModel)
+                            NavHostContainer(navController = navController, padding = padding, toastModel = toastViewModel, compassViewModel=compassViewModel, context = this)
                         }
                     )
                 }
 
         }
+
     }
 }
 
@@ -57,7 +63,9 @@ class MainActivity : ComponentActivity() {
 fun NavHostContainer(
     navController: NavHostController,
     padding: PaddingValues,
-    toastModel: ToastViewModel
+    toastModel: ToastViewModel,
+    compassViewModel: CompassViewModel,
+    context: Context
 ) {
     NavHost(
         navController = navController,
@@ -68,7 +76,7 @@ fun NavHostContainer(
                 HomeScreen()
             }
             composable("compass") {
-                CompassScreen()
+                CompassScreen(compassViewModel)
             }
             composable("toast") {
 
