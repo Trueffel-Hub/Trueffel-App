@@ -1,0 +1,68 @@
+package com.example.trueffel_app.repository
+
+import androidx.lifecycle.ViewModel
+
+class ToastViewModel : ViewModel() {
+
+    val all_toasts = listOf(
+        "„Essen ist ein Bedürfnis des Magens. Trinken ein Bedürfnis der Seele. Essen ist ein gewöhnliches Handwerk, Trinken eine Kunst.“",
+        "„Sei stets vergnügt und niemals sauer, das verlängert deine Lebensdauer.“",
+        "„Der größte Feind des Menschen wohl das ist und bleibt der Alkohol. Doch in der Bibel steht geschrieben: Du sollst auch deine Feinde lieben.“",
+        "„Von der Wiege bis zur Bahre, ist der Suff das einzig Wahre.“",
+        "„Dieses Glas dem guten Geist.“ — Friedrich Schiller",
+        "„Der Durst kommt beim Trinken.“",
+        "„Auch Wasser ist ein edler Tropfen, mischt man es mit Malz und Hopfen.“",
+        "„Jeder Mensch muss an etwas glauben. Ich glaube ich trink noch ein Bier!“",
+        "„Zwei Bier sind besser als eins — das ist Mathematik, die man versteht.“",
+        "„Lieber Mond, du hast es schwer, hast allen Grund zur Klage. Du bist nur zwölf mal voll im Jahr, ich bin es alle Tage.“",
+        "„Alles ist vergänglich, nur der Durst bleibt lebenslänglich.“",
+        "„Das erste Bier, das löscht den Durst. Das zweite stimmt mich heiter. Nach dreien ist mir alles Wurst, drum sauf ich einfach weiter.“",
+        "„Vonum bonum deorum donum.“ (Latein: „Ein guter Wein ist ein Geschenk der Götter.“)",
+        "„Melkt der Bauer seinen Stier, trank der Trottel zu viel Bier.“",
+        "„Erinnerungslücken sind der Hauptgewinn am Boden einer jeden Schnapsflasche.“",
+        "„Ein Schnäpschen in Ehren kann niemand verwehren.“",
+        "„In der Ruhe liegt die Kraft, doch in der Truhe liegt der Schnaps.“",
+        "„Caipi, Becks und Jägermeister, das sind unsere Lebensgeister.“ — Christoph Bräkling",
+        "„In dubio Prosecco.“ (Latein: „Im Zweifel für den Prosecco.“)",
+        "„Sport gibt dir das Gefühl, dass du nackt besser aussiehst. Bier auch!“",
+        "„Salute, Alles Gute! Salute, Sauf gut!“",
+        "„Mach’s Maul ned unnütz auf, red‘ was g’scheites oder sauf!“",
+        "„Liaba an Bauch vom saufa, ois an Buckl vom arbatn.“",
+        "„Kippis!“ — Finnland",
+        "„Mahalu!“ — Hawaii",
+        "„Kanpai!“ — Japan",
+        "„Statt vieler Worte und großer Reden, wollen wir lieber noch einen heben!“",
+        "„Auf das Fleisch für den Hunger, auf den Met gegen den Durst. Auf gute Freunde, für Spaß und für Walhall, wenn du stirbst.“",
+        "„Euch ist bekannt, was wir bedürfen, wir wollen starke Getränke schlürfen.“",
+        "„Trüffel packt an – erst das Glas, dann die Welt!“",
+        "„Trüffel trinkt, so soll es sein – das Leben ist kurz, genießt das Bier und den Sonnenschein!“",
+        "„Trüffel hebt das Bier empor – Vatertag rockt, Prost im Chor!“",
+        "„Trüffel trinkt mit vollem Schwung – der Tag ist lang, die Nacht noch jung!“"
+    )
+
+
+    var currentToast = "Heute saufen wir richtig einen,... oder?"
+
+    private var toasts = all_toasts.toMutableList()
+    var toastLeft = toasts.size
+
+
+
+    fun getRandomToast(): String? {
+        return if (toasts.isNotEmpty()) {
+            val toast = toasts.random()
+            toasts.remove(toast)
+            toastLeft = toasts.size
+
+            toast
+        } else {
+            "Alle Sprüche sind gesprochen. Ich hoffe ihr seid schon bei Marv im Garten angekrochen."
+        }
+    }
+
+
+    fun resetToasts(){
+        this.toasts = all_toasts.toMutableList()
+        this.currentToast = "Also auf ein Neues. Ein Frohes Neues!"
+    }
+}
