@@ -10,19 +10,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.trueffel_app.ui.components.HomeScreen
-import com.example.trueffel_app.ui.components.CompassScreen
-import com.example.trueffel_app.ui.components.ToastScreen
+import com.example.trueffel_app.ui.screens.HomeScreen
+import com.example.trueffel_app.ui.screens.CompassScreen
+import com.example.trueffel_app.ui.screens.ToastScreen
 import com.example.trueffel_app.ui.theme.DemoTheme
 import com.geeksforgeeks.demo.utils.Constants
 
