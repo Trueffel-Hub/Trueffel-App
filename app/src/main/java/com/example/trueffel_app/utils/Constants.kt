@@ -3,26 +3,27 @@ package com.geeksforgeeks.demo.utils
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import com.geeksforgeeks.demo.models.BottomNavItem
+import com.example.trueffel_app.R
 
 object Constants {
     val BottomNavItems = listOf(
         // Home screen
         BottomNavItem(
             label = "Home",
-            icon = Icons.Filled.Home,
+            icon = R.drawable.home,
             route = "home"
         ),
         // Search screen
         BottomNavItem(
-            label = "Search",
-            icon = Icons.Filled.Search,
-            route = "search"
+            label = "Compass",
+            icon = R.drawable.compass,
+            route = "compass"
         ),
         // Profile screen
         BottomNavItem(
-            label = "Profile",
-            icon = Icons.Filled.Person,
-            route = "profile"
+            label = "Toast",
+            icon = R.drawable.toast2,
+            route = "toast"
         )
     )
 }
