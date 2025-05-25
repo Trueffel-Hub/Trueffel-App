@@ -1,12 +1,10 @@
 package com.geeksforgeeks.demo.models
 
-import androidx.compose.ui.graphics.vector.ImageVector
-
 data class BottomNavItem(
     // Text below icon
     val label: String,
     // Icon
-    val icon: ImageVector,
+    val icon: Int,
     // Route to the specific screen
     val route:String,
 )

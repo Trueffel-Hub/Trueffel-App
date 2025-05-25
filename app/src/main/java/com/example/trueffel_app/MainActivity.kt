@@ -1,28 +1,45 @@
 package com.example.trueffel_app
 
+
+
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.activity.*
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.trueffel_app.ui.theme.TrueffelAppTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.trueffel_app.ui.screens.HomeScreen
+import com.example.trueffel_app.ui.screens.CompassScreen
+import com.example.trueffel_app.ui.screens.ToastScreen
+import com.example.trueffel_app.ui.theme.DemoTheme
+import com.geeksforgeeks.demo.utils.Constants
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TrueffelAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+            DemoTheme(dynamicColor = false, darkTheme = true) {
+                val navController = rememberNavController()
+                Surface(color = Color.Red) {
+                    // Scaffold Component
+                    Scaffold(
+                        // Bottom navigation
+                        bottomBar = {
+                            BottomNavigationBar(navController = navController)
+                        }, content = { padding ->
+                            // Nav host: where screens are placed
+                            NavHostContainer(navController = navController, padding = padding)
+                        }
                     )
                 }
             }
@@ -31,17 +48,91 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun NavHostContainer(
+    navController: NavHostController,
+    padding: PaddingValues
+) {
+
+    NavHost(
+        navController = navController,
+
+        // set the start destination as home
+        startDestination = "home",
+
+        // Set the padding provided by scaffold
+        modifier = Modifier.padding(paddingValues = padding),
+
+        builder = {
+
+            // route : Home
+            composable("home") {
+                HomeScreen()
+            }
+
+            // route : search
+            composable("compass") {
+                CompassScreen()
+            }
+
+            // route : profile
+            composable("toast") {
+                ToastScreen()
+            }
+        })
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    TrueffelAppTheme {
-        Greeting("Android")
+fun BottomNavigationBar(navController: NavHostController) {
+
+    NavigationBar(
+
+        // set background color for navigation bar
+        containerColor = Color(0xFFbcbcbc)) {
+
+        // observe the backstack
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+        // observe current route to change the icon
+        // color,label color when navigated
+        val currentRoute = navBackStackEntry?.destination?.route
+
+        // Bottom nav items we declared
+        Constants.BottomNavItems.forEach { navItem ->
+
+            // Place the bottom nav items
+            NavigationBarItem(
+
+                // it currentRoute is equal then its selected route
+                selected = currentRoute == navItem.route,
+
+                // navigate on click
+                onClick = {
+                    navController.navigate(navItem.route)
+                },
+
+                // Icon of navItem
+                icon = {
+
+                    Icon(
+                        painter = painterResource(id = navItem.icon),
+                        contentDescription = navItem.label,
+                        modifier = Modifier.size(40.dp),
+                        tint = Color.Unspecified
+                    )
+                },
+
+                // label
+                label = {
+                    Text(text = navItem.label)
+                },
+                alwaysShowLabel = true,
+
+                colors = NavigationBarItemDefaults.colors(
+                    selectedTextColor = Color.White, // Label color when selected
+                    indicatorColor = Color(0xffbcbcbc) // Highlight color for selected item
+                )
+            )
+        }
     }
 }
+
