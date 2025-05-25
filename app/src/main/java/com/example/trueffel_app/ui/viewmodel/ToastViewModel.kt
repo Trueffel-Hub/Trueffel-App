@@ -11,7 +11,7 @@ class ToastViewModel : ViewModel() {
     var currentToast = "Heute saufen wir richtig einen,... oder?"
 
 
-    private val toasts = mutableListOf(
+    private var toasts = mutableListOf(
         "Das ist der erste Toast.",
         "Ein weiterer Toast erscheint.",
         "XML kann für gespeicherte Daten genutzt werden.",
@@ -24,7 +24,17 @@ class ToastViewModel : ViewModel() {
             toasts.remove(toast)
             toast
         } else {
-            "Alle Sprüche sind gesprochen. Ich hoffe ihr seid schon bei Marv im Garten."
+            "Alle Sprüche sind gesprochen. Ich hoffe ihr seid schon bei Marv im Garten angekrochen."
         }
+    }
+
+    fun resetToasts(){
+        this.toasts = mutableListOf(
+            "Das ist der erste Toast.",
+            "Ein weiterer Toast erscheint.",
+            "XML kann für gespeicherte Daten genutzt werden.",
+            "XML kann für gespeicherte Daten genutzt werden. XML kann für gespeicherte Daten genutzt werden. XML kann für gespeicherte Daten genutzt werden. XML kann für gespeicherte Daten genutzt werden."
+        )
+        this.currentToast = "Also auf ein Neues. Ein Frohes Neues!"
     }
 }
