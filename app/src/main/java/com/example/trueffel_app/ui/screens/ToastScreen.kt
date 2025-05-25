@@ -71,7 +71,7 @@ fun ToastScreen(model: ToastViewModel) {
                     color = Color.Black,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    fontSize = 40.sp
+                    fontSize = 32.sp
                 )
             }
         }
