@@ -31,10 +31,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        var toastViewModel = ViewModelProvider(this)[ToastViewModel::class.java]
+        val toastViewModel = ViewModelProvider(this)[ToastViewModel::class.java]
 
         setContent {
-            DemoTheme(dynamicColor = false, darkTheme = true) {
+
                 val navController = rememberNavController()
                 Surface(color = Color.Red) {
                     // Scaffold Component
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                 }
-            }
+
         }
     }
 }

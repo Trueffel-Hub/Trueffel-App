@@ -34,7 +34,7 @@ import com.example.trueffel_app.repository.ToastViewModel
 fun ToastScreen(model: ToastViewModel
 
 ) {
-    var displayedText by remember { mutableStateOf(model.startToast) }
+    var displayedText by remember { mutableStateOf(model.currentToast) }
 
     Column(
         modifier = Modifier.fillMaxSize().background(Color.White).padding(horizontal = 6.dp),
@@ -45,10 +45,12 @@ fun ToastScreen(model: ToastViewModel
             Text(
                 text = displayedText,
                 color = Color.Black,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.
+                fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 maxLines = Int.MAX_VALUE,
-                softWrap = true
+                softWrap = true,
+                fontSize = 40.sp
             )
         }
 
@@ -63,7 +65,9 @@ fun ToastScreen(model: ToastViewModel
             ) {
                 Button(
                     onClick = {
-                        displayedText = model.getRandomToast().toString()
+                        model.currentToast = model.getRandomToast().toString()
+                        displayedText = model.currentToast
+
 
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))

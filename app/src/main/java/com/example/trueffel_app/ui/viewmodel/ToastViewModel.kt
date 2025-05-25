@@ -8,7 +8,7 @@ import com.example.trueffel_app.R
 
 class ToastViewModel : ViewModel() {
 
-    var startToast = "Heute saufen wir richtig einen,... oder?"
+    var currentToast = "Heute saufen wir richtig einen,... oder?"
 
 
     private val toasts = mutableListOf(
