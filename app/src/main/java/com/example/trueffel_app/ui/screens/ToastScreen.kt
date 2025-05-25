@@ -25,34 +25,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.trueffel_app.R
-import com.example.trueffel_app.models.readToastsFromXML
+import com.example.trueffel_app.repository.ToastViewModel
 
 
 @Composable
-fun ToastScreen() {
+fun ToastScreen(model: ToastViewModel
+
+) {
+    var displayedText by remember { mutableStateOf(model.startToast) }
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(horizontal = 6.dp), // Abstand zum Rand
+        modifier = Modifier.fillMaxSize().background(Color.White).padding(horizontal = 6.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 6.dp), // Abstand zum Rand
-            contentAlignment = Alignment.Center
-        ) {
+        Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 6.dp), contentAlignment = Alignment.Center) {
             Text(
-                text = "Test",
+                text = displayedText,
                 color = Color.Black,
-                fontSize = 30.sp,
-                textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
                 maxLines = Int.MAX_VALUE,
-                softWrap = true // Ermöglicht Zeilenumbrüche
+                softWrap = true
             )
         }
 
@@ -66,15 +62,18 @@ fun ToastScreen() {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(
-                    onClick = { },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5)),
+                    onClick = {
+                        displayedText = model.getRandomToast().toString()
+
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
                 ) {
                     Text("Button 1")
                 }
 
                 Button(
-                    onClick = { /* Aktion für Button 2 */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5)),
+                    onClick = { },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
                 ) {
                     Text("Button 2")
                 }
