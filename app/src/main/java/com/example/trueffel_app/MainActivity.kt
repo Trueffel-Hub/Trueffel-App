@@ -32,6 +32,7 @@ import ToiletteScreen
 import com.example.trueffel_app.ui.theme.DemoTheme
 import com.example.trueffel_app.ui.viewmodel.ToiletteViewModel
 import com.geeksforgeeks.demo.utils.Constants
+import com.geeksforgeeks.demo.utils.CustomColors
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,7 +105,8 @@ fun BottomNavigationBar(navController: NavHostController) {
     NavigationBar(
 
         // set background color for navigation bar
-        containerColor = Color(0xFFbcbcbc)) {
+        containerColor = Color(0xFF2A2E31)
+    ) {
 
 
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -113,37 +115,31 @@ fun BottomNavigationBar(navController: NavHostController) {
 
         Constants.BottomNavItems.forEach { navItem ->
 
-            // Place the bottom nav items
             NavigationBarItem(
 
-                // it currentRoute is equal then its selected route
                 selected = currentRoute == navItem.route,
 
-                // navigate on click
                 onClick = {
                     navController.navigate(navItem.route)
                 },
-
-                // Icon of navItem
                 icon = {
-
                     Icon(
                         painter = painterResource(id = navItem.icon),
                         contentDescription = navItem.label,
                         modifier = Modifier.size(40.dp),
-                        tint = Color.Unspecified
+
                     )
                 },
-
-                // label
                 label = {
                     Text(text = navItem.label)
                 },
                 alwaysShowLabel = true,
 
                 colors = NavigationBarItemDefaults.colors(
-                    selectedTextColor = Color.White, // Label color when selected
-                    indicatorColor = Color(0xffbcbcbc) // Highlight color for selected item
+                    selectedTextColor = CustomColors.ShadowedWhite, // Label color when selected
+                    indicatorColor = CustomColors.ShadowedWhite,
+                    selectedIconColor = CustomColors.CommentGray,
+                    unselectedIconColor = Color.Gray
                 )
             )
         }

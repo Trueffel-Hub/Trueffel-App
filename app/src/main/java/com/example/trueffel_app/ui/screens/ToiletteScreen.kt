@@ -160,26 +160,6 @@ fun ProfileRow(profile: Profile, index: Int, onClick: (Profile) -> Unit) {
     }
 }
 
-@Composable
-fun ShowHighestProfileDialog(profiles: List<Profile>, onDismiss: () -> Unit) {
-    val highestProfile = profiles.maxByOrNull { it.counter }
-
-    if (highestProfile != null) {
-        AlertDialog(
-            onDismissRequest = { onDismiss() },
-            title = { Text("Highest Counter") },
-            text = { Text("${highestProfile.name} war ${highestProfile.counter} am Baum.") },
-            confirmButton = {
-                Button(
-                    onClick = { onDismiss() },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
-                ) {
-                    Text("Ok")
-                }
-            }
-        )
-    }
-}
 
 fun getPlayersWithHighestCounter(profiles: List<Profile>): List<Profile> {
     val maxCounter = profiles.maxOfOrNull { it.counter } ?: return emptyList()

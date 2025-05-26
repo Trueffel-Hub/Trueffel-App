@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.trueffel_app.repository.ToastViewModel
+import com.geeksforgeeks.demo.utils.CustomColors
 
 @Composable
 fun ToastScreen(model: ToastViewModel) {
@@ -34,105 +35,110 @@ fun ToastScreen(model: ToastViewModel) {
     var toasts_left by remember { mutableStateOf(model.toastLeft) }
     var showDialog by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(horizontal = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
-    )
-
-    {
-        Text(
-            text = "Übrige Trinksprüche: $toasts_left",
-            color = Color.Black,
-            fontSize = 24.sp,
-            modifier = Modifier.padding(top = 16.dp)
-        )
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.White)
-                    .padding(horizontal = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            )
-            {
-                Text(
-                    text = displayedText,
-                    color = Color.Black,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 32.sp
-                )
-            }
-        }
-    }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 32.dp),
-        contentAlignment = Alignment.BottomCenter
+            .background(CustomColors.StandardGrey)
     ) {
-        Row(
+
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Button(
-                onClick = {
-                    model.currentToast = model.getRandomToast().toString()
-                    displayedText = model.currentToast
-                    toasts_left = model.toastLeft
-                },
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
-            ) {
-                Text("Neuer Toast")
-            }
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        )
 
-            Spacer(modifier = Modifier.width(50.dp))
+        {
+            Text(
+                text = "Übrige Trinksprüche: $toasts_left",
+                color = CustomColors.ShadowedWhite,
+                fontSize = 24.sp,
+                modifier = Modifier.padding(top = 16.dp)
+            )
 
-            Button(
-                onClick = { showDialog = true },
-                modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                contentAlignment = Alignment.Center
             ) {
-                Text("Reset")
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                )
+                {
+                    Text(
+                        text = displayedText,
+                        color = CustomColors.ShadowedWhite,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 32.sp
+                    )
+                }
             }
         }
-    }
 
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = { Text("Bestätigung") },
-            text = { Text("Alle Toasts zurücksetzten?") },
-            dismissButton = {
-                TextButton(onClick = { showDialog = false }) {
-                    Text("Nein")
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 32.dp),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Button(
+                    onClick = {
+                        model.currentToast = model.getRandomToast().toString()
+                        displayedText = model.currentToast
+                        toasts_left = model.toastLeft
+                    },
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
+                ) {
+                    Text("Neuer Toast")
                 }
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    model.resetToasts()
-                    toasts_left = 34 //TODO
-                    displayedText = model.currentToast
-                    showDialog = false
-                }) {
-                    Text("Ja")
+
+                Spacer(modifier = Modifier.width(50.dp))
+
+                Button(
+                    onClick = { showDialog = true },
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
+                ) {
+                    Text("Reset")
                 }
             }
-        )
+        }
+
+        if (showDialog) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                title = { Text("Bestätigung") },
+                text = { Text("Alle Toasts zurücksetzten?") },
+                dismissButton = {
+                    TextButton(onClick = { showDialog = false }) {
+                        Text("Nein")
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        model.resetToasts()
+                        toasts_left = 34 //TODO
+                        displayedText = model.currentToast
+                        showDialog = false
+                    }) {
+                        Text("Ja")
+                    }
+                }
+            )
+        }
     }
 }
