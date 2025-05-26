@@ -7,7 +7,7 @@ import com.example.trueffel_app.R
 data class Profile(
     val imageResId: Int,
     val name: String,
-    var counter: Int
+    val counter: Int
 )
 
 class ToiletteViewModel : ViewModel() {
