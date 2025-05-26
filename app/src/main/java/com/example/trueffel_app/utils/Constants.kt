@@ -13,6 +13,11 @@ object Constants {
             icon = R.drawable.home,
             route = "home"
         ),
+        BottomNavItem(
+            label = "Toilette",
+            icon = R.drawable.toilet,
+            route = "toilette"
+        ),
         // Search screen
         BottomNavItem(
             label = "Compass",
@@ -24,6 +29,8 @@ object Constants {
             label = "Toast",
             icon = R.drawable.toast2,
             route = "toast"
-        )
+        ),
+
+
     )
 }

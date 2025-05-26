@@ -44,7 +44,7 @@ class ToastViewModel : ViewModel() {
     var currentToast = "Heute saufen wir richtig einen,... oder?"
 
     private var toasts = all_toasts.toMutableList()
-    var toastLeft = toasts.size
+    var toastLeft = toasts.size+1
 
 
 

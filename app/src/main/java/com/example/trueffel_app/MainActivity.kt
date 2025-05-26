@@ -28,7 +28,9 @@ import com.example.trueffel_app.ui.viewmodel.CompassViewModel
 import com.example.trueffel_app.ui.screens.HomeScreen
 import com.example.trueffel_app.ui.screens.CompassScreen
 import com.example.trueffel_app.ui.screens.ToastScreen
+import ToiletteScreen
 import com.example.trueffel_app.ui.theme.DemoTheme
+import com.example.trueffel_app.ui.viewmodel.ToiletteViewModel
 import com.geeksforgeeks.demo.utils.Constants
 
 class MainActivity : ComponentActivity() {
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val toastViewModel = ViewModelProvider(this)[ToastViewModel::class.java]
         val compassViewModel = ViewModelProvider(this)[CompassViewModel::class.java]
+        val toiletteViewModel = ViewModelProvider(this)[ToiletteViewModel::class.java]
 
         setContent {
 
@@ -49,7 +52,13 @@ class MainActivity : ComponentActivity() {
                             BottomNavigationBar(navController = navController)
                         }, content = { padding ->
                             // Nav host: where screens are placed
-                            NavHostContainer(navController = navController, padding = padding, toastModel = toastViewModel, compassViewModel=compassViewModel, context = this)
+                            NavHostContainer(
+                                navController = navController,
+                                padding = padding,
+                                toastModel = toastViewModel,
+                                compassViewModel=compassViewModel,
+                                toiletteViewModel=toiletteViewModel,
+                                context = this)
                         }
                     )
                 }
@@ -65,6 +74,7 @@ fun NavHostContainer(
     padding: PaddingValues,
     toastModel: ToastViewModel,
     compassViewModel: CompassViewModel,
+    toiletteViewModel: ToiletteViewModel,
     context: Context
 ) {
     NavHost(
@@ -75,12 +85,13 @@ fun NavHostContainer(
             composable("home") {
                 HomeScreen()
             }
+            composable("toilette"){
+                ToiletteScreen(toiletteViewModel)
+            }
             composable("compass") {
                 CompassScreen(compassViewModel)
             }
             composable("toast") {
-
-
                 ToastScreen(toastModel)
             }
         }

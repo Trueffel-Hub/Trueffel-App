@@ -126,7 +126,7 @@ fun ToastScreen(model: ToastViewModel) {
             confirmButton = {
                 TextButton(onClick = {
                     model.resetToasts()
-                    toasts_left = 33 //TODO
+                    toasts_left = 34 //TODO
                     displayedText = model.currentToast
                     showDialog = false
                 }) {
