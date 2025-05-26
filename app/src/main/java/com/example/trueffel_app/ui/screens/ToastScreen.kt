@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,12 +21,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.trueffel_app.repository.ToastViewModel
 import com.geeksforgeeks.demo.utils.CustomColors
+import com.geeksforgeeks.demo.utils.CustomColors.ButtonBlue
 
 @Composable
 fun ToastScreen(model: ToastViewModel) {
@@ -100,20 +100,28 @@ fun ToastScreen(model: ToastViewModel) {
                         displayedText = model.currentToast
                         toasts_left = model.toastLeft
                     },
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
+                    colors = ButtonDefaults.buttonColors(containerColor = ButtonBlue),
+                    modifier = Modifier
+                        .width(150.dp)
                 ) {
-                    Text("Neuer Toast")
+                    Text("New Toast",
+                        color = CustomColors.ButtonTextColor,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold)
                 }
 
-                Spacer(modifier = Modifier.width(50.dp))
 
                 Button(
                     onClick = { showDialog = true },
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF89B7F5))
+
+                    colors = ButtonDefaults.buttonColors(containerColor = ButtonBlue),
+                    modifier = Modifier
+                        .width(150.dp)
                 ) {
-                    Text("Reset")
+                    Text("Reset",
+                        color = CustomColors.ButtonTextColor,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold)
                 }
             }
         }

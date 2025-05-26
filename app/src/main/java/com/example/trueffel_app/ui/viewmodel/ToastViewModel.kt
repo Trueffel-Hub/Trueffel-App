@@ -44,19 +44,17 @@ class ToastViewModel : ViewModel() {
     var currentToast = "Heute saufen wir richtig einen,... oder?"
 
     private var toasts = all_toasts.toMutableList()
-    var toastLeft = toasts.size+1
+    var toastLeft = toasts.size
 
 
-
-    fun getRandomToast(): String? {
+    fun getRandomToast(): String {
         return if (toasts.isNotEmpty()) {
             val toast = toasts.random()
             toasts.remove(toast)
             toastLeft = toasts.size
-
             toast
         } else {
-            "Alle Sprüche sind gesprochen. Ich hoffe ihr seid schon zu Marv in den Garten gekrochen."
+            "Alle Sprüche sind bereits gesprochen. Ich hoffe ihr seid schon zu Marv in den Garten gekrochen."
         }
     }
 

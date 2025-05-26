@@ -49,6 +49,9 @@ object CustomColors{
     val ShadowedWhite = Color(0xFFF2F5F4)
 
     @Stable
-    val ButtonBlue = Color(0xFF7FC7FF)
+    val ButtonBlue = Color(0xFF89B7F5)
+
+    @Stable
+    val ButtonTextColor = Color(0xFF222222)
 
 }

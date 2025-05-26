@@ -45,22 +45,21 @@ fun HomeScreen() {
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic,
                 modifier = Modifier.fillMaxWidth()
-
             )
         }
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Image(
                 painter = painterResource(id = R.mipmap.logo_white),
                 contentDescription = "Trüffel",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.size(390.dp)
-            )
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxWidth(0.90f) // Bild nimmt 50% der Breite ein
 
+            )
         }
     }
 
