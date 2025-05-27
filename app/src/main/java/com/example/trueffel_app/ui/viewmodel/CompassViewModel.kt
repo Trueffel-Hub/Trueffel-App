@@ -3,22 +3,32 @@ package com.example.trueffel_app.ui.viewmodel
 import android.Manifest
 import android.app.Application
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorManager
 import android.location.Location
 import android.os.Looper
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import java.lang.Math.toDegrees
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
+import android.hardware.SensorEventListener
+
 
 
 enum class Destination(val latitude: Double, val longitude: Double) {
@@ -31,8 +41,43 @@ class CompassViewModel(application: Application) : AndroidViewModel(application)
 
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
     private val _location = MutableLiveData<Location?>()
+
+
     val location: LiveData<Location?> get() = _location
     var destination = Destination.None
+
+    private val _bearing = MutableStateFlow(0f)
+    val bearing = _bearing.asStateFlow()
+
+    private val _rotation = MutableStateFlow(0f)
+    val rotation = _rotation.asStateFlow()
+
+
+
+
+
+    private fun calculateBearing(startLat: Double, startLng: Double, endLat: Double, endLng: Double): Float {
+        val startLatRad = Math.toRadians(startLat)
+        val startLngRad = Math.toRadians(startLng)
+        val endLatRad = Math.toRadians(endLat)
+        val endLngRad = Math.toRadians(endLng)
+
+        val deltaLng = endLngRad - startLngRad
+        val y = sin(deltaLng) * cos(endLatRad)
+        val x = cos(startLatRad) * sin(endLatRad) - sin(startLatRad) * cos(endLatRad) * cos(deltaLng)
+        return (toDegrees(atan2(y, x)).toFloat() + 360) % 360
+    }
+
+
+    fun updateBearing(currentLat: Double, currentLng: Double, targetLat: Double, targetLng: Double) {
+        viewModelScope.launch {
+            _bearing.value = calculateBearing(currentLat, currentLng, targetLat, targetLng)
+            //updateRotation()
+        }
+    }
+
+
+
 
 
     fun getCurrentLocation() {
@@ -56,6 +101,7 @@ class CompassViewModel(application: Application) : AndroidViewModel(application)
                 override fun onLocationResult(locationResult: LocationResult) {
                     locationResult.lastLocation?.let {
                         _location.value = it
+                        updateBearing(it.latitude, it.longitude, destination.latitude, destination.longitude)
                     }
                 }
             },
@@ -81,4 +127,5 @@ class CompassViewModel(application: Application) : AndroidViewModel(application)
 
     }
 }
+
 
