@@ -34,6 +34,7 @@ import android.hardware.SensorEventListener
 enum class Destination(val latitude: Double, val longitude: Double) {
     Bank(52.210111, 10.744470),
     Garten(52.218197, 10.691426),
+    //Garten(-52.326913, -100.540318),
     None(0.0, 0.0)
 }
 
@@ -48,12 +49,6 @@ class CompassViewModel(application: Application) : AndroidViewModel(application)
 
     private val _bearing = MutableStateFlow(0f)
     val bearing = _bearing.asStateFlow()
-
-    private val _rotation = MutableStateFlow(0f)
-    val rotation = _rotation.asStateFlow()
-
-
-
 
 
     private fun calculateBearing(startLat: Double, startLng: Double, endLat: Double, endLng: Double): Float {
@@ -72,10 +67,9 @@ class CompassViewModel(application: Application) : AndroidViewModel(application)
     fun updateBearing(currentLat: Double, currentLng: Double, targetLat: Double, targetLng: Double) {
         viewModelScope.launch {
             _bearing.value = calculateBearing(currentLat, currentLng, targetLat, targetLng)
-            //updateRotation()
+
         }
     }
-
 
 
 
