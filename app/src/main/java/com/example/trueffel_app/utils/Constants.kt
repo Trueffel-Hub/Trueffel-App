@@ -54,4 +54,10 @@ object CustomColors{
     @Stable
     val ButtonTextColor = Color(0xFF222222)
 
+
+    @Stable
+    val ColumnColor1 = Color(0xFF444444)
+
+    @Stable
+    val ColumnColor2 = Color(0xFF888888)
 }
